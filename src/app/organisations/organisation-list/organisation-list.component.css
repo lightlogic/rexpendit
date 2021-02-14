@@ -1,0 +1,17 @@
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+ul {
+  display: flex;
+}
+
+.spacer {
+  flex: 3 3 auto;
+}
+
+mat-spinner {
+  margin: auto;
+}
