@@ -12,10 +12,25 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HeaderComponent } from './header/header.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { OrgListComponent } from './orgs/org-list/org-list.component';
+import { OrgDetailComponent } from './orgs/org-detail/org-detail.component';
+import { ReimbListComponent } from './reimbs/reimb-list/reimb-list.component';
+import { ReimbAddComponent } from './reimbs/reimb-add/reimb-add.component';
+import { UserDetailComponent } from './users/user-detail/user-detail.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    DashboardComponent,
+    OrgListComponent,
+    OrgDetailComponent,
+    ReimbListComponent,
+    ReimbAddComponent,
+    UserDetailComponent,
+  ],
   imports: [
     AppRoutingModule,
     BrowserModule,

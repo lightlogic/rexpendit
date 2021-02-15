@@ -13,21 +13,21 @@
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item>
+        <button mat-menu-item routerLink="/orglist">
+          <mat-icon>holiday_village</mat-icon>
+          <span>Organisations (admin)</span>
+        </button>
+        <button mat-menu-item routerLink="/orgdetail">
           <mat-icon>foundation</mat-icon>
           <span>Organisation</span>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item routerLink="/reimbadd">
           <mat-icon>note_add</mat-icon>
-          <span>Nouveau frais</span>
-        </button>
-        <button mat-menu-item disabled>
-          <mat-icon>request_page</mat-icon>
-          <span matBadge="0" matBadgeOverlap="true" matBadgeHidden="true"
-            >(no)Remboursements frais&nbsp;</span
+          <span matBadge="0" matBadgeOverlap="true"
+            >Ajout Remboursement&nbsp;</span
           >
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item routerLink="/reimblist">
           <mat-icon>request_page</mat-icon>
           <span
             matBadge="4"
@@ -36,7 +36,7 @@
             >Remboursements&nbsp;</span
           >
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item routerLink="/userdetail">
           <mat-icon>face</mat-icon>
           <span>Mon compte</span>
         </button>
