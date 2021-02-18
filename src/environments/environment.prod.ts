@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiURL: 'https://lightlogic.ch/api/v1',
+  API_URL: 'https://lightlogic.ch/api/v1',
 };

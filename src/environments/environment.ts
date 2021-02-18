@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiURL: 'https://lightlogic.ch/api/v1',
+  API_URL: 'http://localhost:5000/api/v1',
 };
 
 /*

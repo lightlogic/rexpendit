@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
   <span>
-    <a routerLink="/">Rexpendit</a>
+    <a routerLink="/dashboard">Rexpendit</a>
   </span>
   <span class="spacer"></span>
   <ul>
@@ -21,13 +21,13 @@
           <mat-icon>foundation</mat-icon>
           <span>Organisation</span>
         </button>
-        <button mat-menu-item routerLink="/reimbadd">
+        <button mat-menu-item routerLink="/receiptadd">
           <mat-icon>note_add</mat-icon>
           <span matBadge="0" matBadgeOverlap="true"
             >Ajout Remboursement&nbsp;</span
           >
         </button>
-        <button mat-menu-item routerLink="/reimblist">
+        <button mat-menu-item routerLink="/receiptlist">
           <mat-icon>request_page</mat-icon>
           <span
             matBadge="4"
@@ -48,7 +48,7 @@
       >
       <a
         mat-button
-        routerLink="/login"
+        (click)="onLogout()"
         routerLinkActive="mat-accent"
         color="warn"
         >Logout</a
