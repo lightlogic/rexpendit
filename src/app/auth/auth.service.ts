@@ -45,8 +45,7 @@ export class AuthService {
     this.http
       .post<{ token: string; expiresIn: number }>(
         BACKEND_URL + '/auth/login',
-        authData,
-        { withCredentials: true }
+        authData
       )
       .subscribe((response) => {
         console.log(response);
