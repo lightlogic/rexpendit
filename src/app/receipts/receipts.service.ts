@@ -11,36 +11,51 @@ import { environment } from '../../environments/environment';
 @Injectable({ providedIn: 'root' })
 export class ReceiptService {
   private receipts: Receipt[] = [];
-  private receiptsUpdated = new Subject<Receipt[]>();
+  private receiptsUpdated = new Subject<{
+    receipts: Receipt[];
+    maxResources: number;
+  }>();
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  getReceipts() {
+  getReceipts(currentPage: number, receiptsPerPage: number) {
+    let queryParams = `?page=${currentPage}`;
+    if (receiptsPerPage !== environment.RESOURCES_LIMIT_PER_PAGE) {
+      queryParams = queryParams + `&limit=${receiptsPerPage}`;
+    }
+    queryParams = queryParams + '&sort=-totalAmount';
     this.http
       .get<{ success: boolean; count: number; pagination: any; data: any }>(
-        environment.API_URL + '/receipts'
+        environment.API_URL + '/receipts' + queryParams
       )
       .pipe(
         map((receiptData) => {
-          return receiptData.data.map((receipt) => {
-            console.log(receipt);
-            return {
-              id: receipt._id,
-              debitorOrganisationId: receipt.organisation._id,
-              creditorUser: receipt.user,
-              totalCreditAmount: receipt.totalAmount,
-              creditDate: receipt.date,
-              description: receipt.description,
-              digitalCopy: receipt.digitalCopy,
-              createdAt: receipt.createdAt,
-            };
-          });
+          console.log(receiptData.pagination.maxResources);
+          return {
+            receipts: receiptData.data.map((receipt) => {
+              return {
+                id: receipt._id,
+                debitorOrganisation: receipt.organisation._id,
+                creditorUser: receipt.user,
+                totalCreditAmount: receipt.totalAmount,
+                creditDate: receipt.date,
+                description: receipt.description,
+                digitalCopy: receipt.digitalCopy,
+                createdAt: receipt.createdAt,
+              };
+            }),
+            maxResources: receiptData.pagination.maxResources,
+          };
         })
       )
-      // transformedFeatures is the result of the modified feature by the map function (_id field -> id)
-      .subscribe((transformedReceipts) => {
-        this.receipts = transformedReceipts;
-        this.receiptsUpdated.next([...this.receipts]);
+      // transformedReceipts is the result of the modified receipt by the map function ( for ex. _id field -> id)
+      .subscribe((transformedReceiptsData) => {
+        console.log(transformedReceiptsData);
+        this.receipts = transformedReceiptsData.receipts;
+        this.receiptsUpdated.next({
+          receipts: [...this.receipts],
+          maxResources: transformedReceiptsData.maxResources,
+        });
       });
   }
 
@@ -68,20 +83,21 @@ export class ReceiptService {
     return this.receiptsUpdated.asObservable();
   }
 
-  // deleteReceipt(featureId: string) {
-  //   this.http
-  //     .delete(environment.API_URL + '/geoentities/' + featureId)
-  //     .subscribe(() => {
-  //       // to keep in the local array of features the posts that does not have featureId
-  //       // and delete the one that has the featureId
-  //       // -> filter checks every elements of an array against a condition. It will keep the element that does NOT match the condition
-  //       const featuresWithoutTheDeleted = this.features.filter(
-  //         (feature) => feature.id !== featureId
-  //       );
-  //       this.features = featuresWithoutTheDeleted;
-  //       this.featuresUpdated.next([...this.features]);
-  //     });
-  // }
+  deleteReceipt(receiptId: string) {
+    console.log(receiptId);
+    // this.http
+    //   .delete(environment.API_URL + '/geoentities/' + featureId)
+    //   .subscribe(() => {
+    //     // to keep in the local array of features the posts that does not have featureId
+    //     // and delete the one that has the featureId
+    //     // -> filter checks every elements of an array against a condition. It will keep the element that does NOT match the condition
+    //     const featuresWithoutTheDeleted = this.features.filter(
+    //       (feature) => feature.id !== featureId
+    //     );
+    //     this.features = featuresWithoutTheDeleted;
+    //     this.featuresUpdated.next([...this.features]);
+    //   });
+  }
 
   //   updateReceipt(itemType: string) {
   //     const typeValue = {

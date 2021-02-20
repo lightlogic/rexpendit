@@ -4,7 +4,11 @@
 
 export const environment = {
   production: false,
+  // DB
   API_URL: 'http://localhost:5000/api/v1',
+  //pagination
+  RESOURCES_LIMIT_PER_PAGE: 15,
+  RESOURCES_LIMIT_PER_PAGE_OPTIONS: [5, 10, 15, 50],
 };
 
 /*
